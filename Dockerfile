@@ -9,9 +9,10 @@ RUN apt-get -yqq update && \
     git \
     openjdk-8-jdk \
     lib32stdc++6 \
-    lib32z1
+    lib32z1 \
+    libc++1
 
-RUN curl -o nodejs.deb https://deb.nodesource.com/node_10.x/pool/main/n/nodejs/nodejs_10.16.2-1nodesource1_amd64.deb && \
+RUN curl -o nodejs.deb https://deb.nodesource.com/node_12.x/pool/main/n/nodejs/nodejs_12.16.1-1nodesource1_amd64.deb && \
     apt-get -yqq install ./nodejs.deb --no-install-recommends && \
     apt-get -yqq autoremove && \
     apt-get -yqq clean && \
@@ -27,4 +28,11 @@ ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 ENV ANDROID_HOME /usr/local/android-sdk-linux
 ENV PATH ${ANDROID_HOME}/tools:$ANDROID_HOME/platform-tools:$PATH
 
-RUN echo y | $ANDROID_HOME/tools/bin/sdkmanager "tools" "platform-tools" "platforms;android-29" "build-tools;29.0.2" "extras;android;m2repository" "extras;google;m2repository"
+RUN echo y | $ANDROID_HOME/tools/bin/sdkmanager \
+    "tools" \
+    "platform-tools" \
+    "platforms;android-29" \
+    "build-tools;29.0.3" \
+    "extras;android;m2repository" \
+    "extras;google;m2repository" \
+    "ndk;20.0.5594570"
